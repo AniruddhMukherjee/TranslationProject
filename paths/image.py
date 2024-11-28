@@ -6,6 +6,8 @@ from googletrans import Translator
 from gtts import gTTS
 import os
 
+os.environ["TESSERACT_CMD"] = "/usr/bin/tesseract"
+
 # Tesseract configuration
 if not os.path.exists('/usr/bin/tesseract'):
     st.warning("Tesseract is not installed. Please install it or adjust the path.")
