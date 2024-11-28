@@ -1,0 +1,8 @@
+streamlit
+streamlit-audiorec
+SpeechRecognition
+gTTS
+googletrans==3.1.0a0
+streamlit-option-menu
+pytesseract
+Pillow
