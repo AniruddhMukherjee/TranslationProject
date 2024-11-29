@@ -5,7 +5,33 @@ import numpy as np
 from googletrans import Translator
 from gtts import gTTS
 import os
+import subprocess
+import sys
 
+#constants
+LANGUAGES = {
+    'en': 'English',
+    'de': 'German',
+    'hi': 'Hindi',
+    'bn': 'Bengali',
+    'mr': 'Marathi'    
+}
+
+def install_tesseract():
+    """Install Tesseract OCR if not present"""
+    try:
+        if sys.platform.startswith('linux'):
+            st.info("Installing Tesseract OCR. This may take a moment...")
+            subprocess.run(['apt-get', 'update'], check=True)
+            subprocess.run(['apt-get', 'install', '-y', 'tesseract-ocr'], check=True)
+            st.success("Tesseract OCR installed successfully!")
+            return True
+    except subprocess.CalledProcessError:
+        st.error("Failed to install Tesseract. Please check system permissions.")
+        return False
+    except Exception as e:
+        st.error(f"An error occurred during installation: {str(e)}")
+        return False
 
 # Tesseract configuration
 if not os.path.exists('/usr/bin/tesseract'):
@@ -14,13 +40,27 @@ if not os.path.exists('/usr/bin/tesseract'):
 else:
     pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
-LANGUAGES = {
-    'en': 'English',
-    'de': 'German',
-    'hi': 'Hindi',
-    'bn': 'Bengali',
-    'mr': 'Marathi'    
-}
+def setup_tesseract():
+    """Configure Tesseract path and ensure it's installed"""
+    try:
+        # Try to get Tesseract version to check if it's installed
+        pytesseract.get_tesseract_version()
+    except pytesseract.TesseractNotFoundError:
+        if not install_tesseract():
+            st.error("Unable to install Tesseract. The app may not function correctly.")
+            return False
+    
+    # Set Tesseract command path
+    if os.path.exists('/usr/bin/tesseract'):
+        pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+    elif os.path.exists('/usr/local/bin/tesseract'):
+        pytesseract.pytesseract.tesseract_cmd = "/usr/local/bin/tesseract"
+    else:
+        st.error("Tesseract installation not found in expected locations.")
+        return False
+    
+    return True
+
 
 def image_to_text(image):
     gray_image = image.convert('L')
