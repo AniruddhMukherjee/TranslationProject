@@ -6,8 +6,6 @@ from googletrans import Translator
 from gtts import gTTS
 import os
 
-st.write("Environment PATH:", os.environ["PATH"])
-
 
 # Tesseract configuration
 if not os.path.exists('/usr/bin/tesseract'):
