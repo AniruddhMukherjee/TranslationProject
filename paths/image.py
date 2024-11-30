@@ -90,6 +90,11 @@ def Translate():
     
         extracted_text = image_to_text(image)
         
+        # Check if extracted text is empty
+        if not extracted_text.strip():
+            st.error("No text could be extracted from the image. Please try a different image with clearer text in english langauge.")
+            return
+
         st.subheader("Extracted Text:")
         st.text(extracted_text)
 
@@ -114,12 +119,19 @@ def Translate():
             st.subheader(f"Translation to {output_lang}:")
             st.text(translation.text)
 
-            tts = gTTS(translation.text, lang=output_lang_code)
-            tts.save("translation.mp3")
-            
-            st.audio("translation.mp3")
+            # Add error handling for text-to-speech
+            try:
+                if translation.text.strip():
+                    tts = gTTS(translation.text, lang=output_lang_code)
+                    tts.save("translation.mp3")
+                    
+                    st.audio("translation.mp3")
 
-            os.remove("translation.mp3")
+                    os.remove("translation.mp3")
+                else:
+                    st.warning("No text available for text-to-speech")
+            except Exception as e:
+                st.error(f"Could not generate audio: {str(e)}")
 
 if __name__ == "__main__":
     Translate()
