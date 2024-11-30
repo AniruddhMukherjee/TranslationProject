@@ -101,13 +101,6 @@ translation-project/
 └── requirements.txt                    # Project dependencies
 ```
 
-## Future Roadmap
-- Expand language support
-- Implement more advanced attention mechanisms
-- Reduce inference time
-- Improve translation accuracy
-- Add more input modalities
-
 ## Contributors
 - [Dev Nandurbarkar](https://github.com/dev13n)
 
