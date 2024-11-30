@@ -127,4 +127,4 @@ project/
 [Dev N]
 
 ## Website
-[translationproject.streamlit.app]
+[Project Link](https://translationproject.streamlit.app)
