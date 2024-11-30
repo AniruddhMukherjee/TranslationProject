@@ -66,8 +66,8 @@ This cutting-edge Neural Machine Translation (NMT) application leverages state-o
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/TranslationProject.git
-   cd multi-modal-translator
+   git clone https://github.com/AniruddhMukherjee/TranslationProject.git
+   cd TranslationProject
    ```
 
 2. Install Python dependencies:
