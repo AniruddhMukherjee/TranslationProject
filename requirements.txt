@@ -7,3 +7,5 @@ streamlit-option-menu
 pytesseract
 tesseract
 Pillow
+keras
+tensorflow
